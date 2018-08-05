@@ -27,16 +27,17 @@ type State struct {
 	strikes, information, players int
 	//draw // one array for deck, everything else is a slice or pointer
 	//discard
-	board [SuitCount]Card // starts at 0 for each suit
+	board [SuitCount]int // starts at 0 for each suit
 }
 
-func Begin(players int) State {
-	state := make(State)
+func Begin(players int) *State {
+	state := new(State)
 	state.players = players
 	state.information = 9
+	return state
 }
 
-func PrintBoard(state State) {
+func PrintBoard(state *State) {
 	fmt.Printf("R B G Y W\n")
 	fmt.Printf("%d %d %d %d %d\n", state.board[red], state.board[blue],
 		state.board[green], state.board[yellow], state.board[white])
