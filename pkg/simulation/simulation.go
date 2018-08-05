@@ -19,8 +19,13 @@ const (
 	SuitCount = iota
 )
 
+func ColorChar(c int) byte {
+	return "RBGYW*"[c]
+}
+
 type Card struct {
-	color, number int
+	Color, Number int
+	Color_known, Number_known bool
 }
 
 type State struct {
@@ -37,8 +42,40 @@ func Begin(players int) *State {
 	return state
 }
 
+/* Run the thing */
+func Run(state *State) {
+
+
+}
+
 func PrintBoard(state *State) {
 	fmt.Printf("R B G Y W\n")
-	fmt.Printf("%d %d %d %d %d\n", state.board[red], state.board[blue],
-		state.board[green], state.board[yellow], state.board[white])
+	for value := range state.board {
+		fmt.Printf("%d ", value)
+	}
+	fmt.Println("")
+}
+
+func PrintCards(cards []Card) {
+	var format string
+	for i := range cards {
+		card := cards[i]
+		if card.Color_known {
+			format = "|%c|"
+		} else {
+			format = " %c "
+		}
+		fmt.Printf(format, ColorChar(card.Color))
+	}
+	fmt.Println("")
+	for i := range cards {
+		card := cards[i]
+		if card.Number_known {
+			format = "|%d|"
+		} else {
+			format = " %d "
+		}
+		fmt.Printf(format, card.Number)
+	}
+	fmt.Println("")
 }
