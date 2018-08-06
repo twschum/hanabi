@@ -1,46 +1,45 @@
 /* simulation
 
-Board, and general rules
+Top level simulation
 
 */
 package simulation
 
 import (
-	"github.com/twschum/hanabi/pkg/player"
 	"github.com/twschum/hanabi/pkg/card"
+	"github.com/twschum/hanabi/pkg/board"
+	"github.com/twschum/hanabi/pkg/player"
 	"fmt"
 )
 
-type Board struct {
-	strikes, information int
-	//draw // one array for deck, everything else is a slice or pointer
-	//discard
-	board [card.SuitCount]int // starts at 0 for each suit
+type Game struct {
+	GameBoard board.Board
+	Players []player.Player
 }
 
-func Begin(players int) *Board {
-	board := new(Board)
-	board.players = players
-	board.information = 9
-	return board
+func Begin(nPlayers int) *Game {
+	game := new(Game)
+	game.Players = make([]player.Player, nPlayers)
+	game.GameBoard.Information = 9
+	for i := 0; i < len(card.Deck) && i < nPlayers*4; i++ {
+	}
+	return game
 }
 
 /* Run the thing */
-func Run(board *Board) {
-
+func Run(game *Game) {
 	// for each player
-		// choose an action
-		// do that action
+	for i, p := range game.Players {
+		// choose&do an action
+		fmt.Printf("Player %d: ", i)
+		p.ChooseAction(&game.GameBoard)
 		// check end game
-}
-
-func (board *Board) Print() {
-	// Prints out the game information
-	fmt.Printf("R B G Y W\n")
-	for i := range board.board {
-		fmt.Printf("%d ", board.board[i])
+		if game.GameBoard.Strikes == 3 {
+			fmt.Println("Game Over - 3 Strikes and You're Out!")
+			break
+		}
+		game.GameBoard.Print()
 	}
-	fmt.Println("")
 }
 
 func PrintCards(cards []card.Card) {
