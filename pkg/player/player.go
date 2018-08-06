@@ -28,7 +28,7 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 		}
 	}
 	// cheat, check their own playable cards
-	if c, valid := p.choosePlayableCard(p.getPlayableCards(b)); valid {
+	if c, valid := p.choosePlayableCard(p.getPlayableCards(b)); valid && false {
 		fmt.Println("(CHEAT)Playing ", c)
 		b.PlayCard(c)
 		p.drawCard(p.indexFromCard(c), b)

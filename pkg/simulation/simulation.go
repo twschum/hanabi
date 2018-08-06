@@ -36,7 +36,7 @@ func Begin(nPlayers int) *Game {
 /* Run the thing */
 func Run(game *Game) {
 	// for each player
-	for game.Board.Strikes < 3 {
+	for game.Board.ShouldContinue() {
 		for i, p := range game.Players {
 			// choose&do an action
 			PrintCards(p.Cards)
@@ -44,10 +44,8 @@ func Run(game *Game) {
 			p.ChooseAction(&game.Board, game.Players)
 			game.Board.Print()
 		}
-		game.Board.Strikes++
 	}
 	fmt.Println("Final Score: ", game.Board.Score())
-	fmt.Println("Game Over - 3 Strikes and You're Out!")
 }
 
 func PrintCards(cards []*card.Card) {
