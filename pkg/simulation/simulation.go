@@ -40,6 +40,7 @@ func Run(game *Game) {
 		game.GameBoard.Print()
 		game.GameBoard.Strikes++
 	}
+	fmt.Println("Final Score: ", game.GameBoard.Score())
 	fmt.Println("Game Over - 3 Strikes and You're Out!")
 }
 
