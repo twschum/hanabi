@@ -47,6 +47,15 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 	fmt.Println("Pass")
 }
 
+func (p Player) HandIsEmpty() bool {
+	for _, c := range p.Cards {
+		if c.IsValid() {
+			return false
+		}
+	}
+	return true
+}
+
 func (p Player) canPlay(c *card.Card) bool {
 	// self
 	if c.IsValid() && (c.Color_known || c.Number_known) {
@@ -64,9 +73,14 @@ func (p Player) drawCard(index int, b *board.Board) {
 func (p Player) randomDiscard(b *board.Board) {
 	// self
 	// random, for now 1
-	index := 1
-	b.DiscardCard(p.Cards[index])
-	p.drawCard(index, b)
+	for i, c := range p.Cards {
+		if c.IsValid() {
+			b.DiscardCard(p.Cards[i])
+			p.drawCard(i, b)
+			return
+		}
+	}
+	fmt.Println("ERROR: no valid cards to discard")
 }
 
 func (p Player) informationKnown() (count int) {
