@@ -37,8 +37,8 @@ func Run(game *Game) {
 			PrintCards(p.Cards)
 			fmt.Printf("Player %d: ", i)
 			p.ChooseAction(&game.GameBoard)
+			game.GameBoard.Print()
 		}
-		game.GameBoard.Print()
 		game.GameBoard.Strikes++
 	}
 	fmt.Println("Final Score: ", game.GameBoard.Score())
@@ -46,23 +46,21 @@ func Run(game *Game) {
 }
 
 func PrintCards(cards []*card.Card) {
-	var format string
 	for i := range cards {
-		if cards[i].Color_known {
-			format = "*%c*"
-		} else {
-			format = " %c "
-		}
+		format := getFormatter(cards[i].Color_known, "%c")
 		fmt.Printf(format, card.ColorChar(cards[i].Color))
 	}
 	fmt.Println("")
 	for i := range cards {
-		if cards[i].Number_known {
-			format = "*%d*"
-		} else {
-			format = " %d "
-		}
+		format := getFormatter(cards[i].Number_known, "%d")
 		fmt.Printf(format, cards[i].Number)
 	}
 	fmt.Println("")
+}
+func getFormatter(known bool, fmtChar string) string {
+	if known {
+		return fmt.Sprintf("*%s*", fmtChar)
+	} else {
+		return fmt.Sprintf(" %s ", fmtChar)
+	}
 }
