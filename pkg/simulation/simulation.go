@@ -21,9 +21,14 @@ func Begin(nPlayers int) *Game {
 	game := new(Game)
 	game.Players = make([]player.Player, nPlayers)
 	game.Board.Information = 9
+	// deal out starting hand cards
 	game.Board.Deck = card.GenerateDeck()
 	for i := 0; i < nPlayers*4; i++ {
 		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, game.Board.Deck.Draw())
+	}
+	// assign IDs
+	for i, player := range game.Players {
+		player.Id = i
 	}
 	return game
 }
@@ -36,7 +41,7 @@ func Run(game *Game) {
 			// choose&do an action
 			PrintCards(p.Cards)
 			fmt.Printf("Player %d: ", i)
-			p.ChooseAction(&game.Board)
+			p.ChooseAction(&game.Board, game.Players)
 			game.Board.Print()
 		}
 		game.Board.Strikes++
