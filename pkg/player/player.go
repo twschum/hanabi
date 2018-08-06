@@ -17,11 +17,13 @@ type Player struct {
 }
 
 func (p *Player) ChooseAction(b *board.Board) {
-	for _, c := range(p.Cards) {
-		if p.canPlay(&c) {
-			fmt.Println("Playing ", &c)
-			b.PlayCard(&c)
-			c.Number = 0 // hack for now
+	for i := range(p.Cards) {
+		c := &p.Cards[i]
+		if p.canPlay(c) {
+			fmt.Println("Playing ", c)
+			b.PlayCard(c)
+			p.Cards[i] = card.DrawCard()
+			fmt.Println("Drawing ", &p.Cards[i])
 			return
 		}
 	}
