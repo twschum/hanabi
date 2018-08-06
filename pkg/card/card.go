@@ -66,3 +66,10 @@ var Deck = [...]Card {
 	Card{Color: White, Number: 4},
 	Card{Color: White, Number: 5},
 }
+var deckIndex = 0
+
+func DrawCard() Card {
+	ret := Deck[deckIndex]
+	deckIndex++
+	return ret
+}

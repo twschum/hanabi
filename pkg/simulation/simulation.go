@@ -21,8 +21,8 @@ func Begin(nPlayers int) *Game {
 	game := new(Game)
 	game.Players = make([]player.Player, nPlayers)
 	game.GameBoard.Information = 9
-	for i := 0; i < len(card.Deck) && i < nPlayers*4; i++ {
-		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, card.Deck[i])
+	for i := 0; i < nPlayers*4; i++ {
+		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, card.DrawCard())
 	}
 	return game
 }
