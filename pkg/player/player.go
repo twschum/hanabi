@@ -28,9 +28,11 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 		}
 	}
 	// cheat, check their own playable cards
-	fmt.Printf("Playable: ")
-	for _, c := range p.getPlayableCards(b) {
-		fmt.Printf("%s ", c)
+	if c, valid := p.choosePlayableCard(p.getPlayableCards(b)); valid {
+		fmt.Println("(CHEAT)Playing ", c)
+		b.PlayCard(c)
+		p.drawCard(p.indexFromCard(c), b)
+		return
 	}
 
 	// try to give information
@@ -90,27 +92,31 @@ func (p Player) getPlayableCards(b *board.Board) (playable []*card.Card) {
 	return
 }
 
-func (p Player) choosePlayableCard(playable []*card.Card) *card.Card {
+func (p Player) choosePlayableCard(playable []*card.Card) (*card.Card, bool) {
 	// given playable cards, choose the best one
+	if len(playable) == 0 {
+		return nil, false
+	}
 	for _, c := range playable {
 		if c.Number == 5 {
-			return c
+			return c, true
 		}
 	}
 	for _, c := range playable {
 		if c.Number == 3 {
-			return c
+			return c, true
 		}
 	}
-	return playable[0]
+	return playable[0], true
 }
 
-func (p Player) indexFromCard(card *card.Card) (int, bool) {
+func (p Player) indexFromCard(card *card.Card) (int) {
 	// for a player get index of card pointer
 	for i, c := range p.Cards {
 		if *card == *c {
-			return i, true
+			return i//, true
 		}
 	}
-	return 0, false
+	return 0
+	//return 0, false
 }

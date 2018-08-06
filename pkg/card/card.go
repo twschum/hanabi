@@ -43,6 +43,7 @@ func (c *Card) String() string {
 type Deck struct {
 	index int
 	deck [25]Card
+	nullCard Card
 }
 
 func GenerateDeck() Deck {
@@ -79,6 +80,9 @@ func GenerateDeck() Deck {
 
 func (deck *Deck) Draw() *Card {
 	// TODO handling the deck running out
+	if deck.index == len(deck.deck) {
+		return &deck.nullCard
+	}
 	deck.index++
 	return &deck.deck[deck.index-1]
 }
