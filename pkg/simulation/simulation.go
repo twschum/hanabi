@@ -13,17 +13,17 @@ import (
 )
 
 type Game struct {
-	GameBoard board.Board
+	Board board.Board
 	Players []player.Player
 }
 
 func Begin(nPlayers int) *Game {
 	game := new(Game)
 	game.Players = make([]player.Player, nPlayers)
-	game.GameBoard.Information = 9
-	game.GameBoard.Deck = card.GenerateDeck()
+	game.Board.Information = 9
+	game.Board.Deck = card.GenerateDeck()
 	for i := 0; i < nPlayers*4; i++ {
-		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, game.GameBoard.Deck.Draw())
+		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, game.Board.Deck.Draw())
 	}
 	return game
 }
@@ -31,17 +31,17 @@ func Begin(nPlayers int) *Game {
 /* Run the thing */
 func Run(game *Game) {
 	// for each player
-	for game.GameBoard.Strikes < 3 {
+	for game.Board.Strikes < 3 {
 		for i, p := range game.Players {
 			// choose&do an action
 			PrintCards(p.Cards)
 			fmt.Printf("Player %d: ", i)
-			p.ChooseAction(&game.GameBoard)
-			game.GameBoard.Print()
+			p.ChooseAction(&game.Board)
+			game.Board.Print()
 		}
-		game.GameBoard.Strikes++
+		game.Board.Strikes++
 	}
-	fmt.Println("Final Score: ", game.GameBoard.Score())
+	fmt.Println("Final Score: ", game.Board.Score())
 	fmt.Println("Game Over - 3 Strikes and You're Out!")
 }
 
