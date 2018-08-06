@@ -37,10 +37,10 @@ func (board *Board) PlayCard(c *card.Card) bool {
 
 func (board *Board) Print() {
 	// Prints out the game information
-	fmt.Printf("R B G Y W\n")
+	fmt.Printf("-------------\n| R B G Y W |\n| ")
 	for i := range board.Fireworks {
 		fmt.Printf("%d ", board.Fireworks[i])
 	}
-	fmt.Println("")
+	fmt.Println("|\n-------------")
 }
 
