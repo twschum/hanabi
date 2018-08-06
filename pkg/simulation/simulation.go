@@ -22,6 +22,7 @@ func Begin(nPlayers int) *Game {
 	game.Players = make([]player.Player, nPlayers)
 	game.GameBoard.Information = 9
 	for i := 0; i < len(card.Deck) && i < nPlayers*4; i++ {
+		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, card.Deck[i])
 	}
 	return game
 }
@@ -29,17 +30,17 @@ func Begin(nPlayers int) *Game {
 /* Run the thing */
 func Run(game *Game) {
 	// for each player
-	for i, p := range game.Players {
-		// choose&do an action
-		fmt.Printf("Player %d: ", i)
-		p.ChooseAction(&game.GameBoard)
-		// check end game
-		if game.GameBoard.Strikes == 3 {
-			fmt.Println("Game Over - 3 Strikes and You're Out!")
-			break
+	for game.GameBoard.Strikes < 3 {
+		for i, p := range game.Players {
+			// choose&do an action
+			PrintCards(p.Cards)
+			fmt.Printf("Player %d: ", i)
+			p.ChooseAction(&game.GameBoard)
 		}
 		game.GameBoard.Print()
+		game.GameBoard.Strikes++
 	}
+	fmt.Println("Game Over - 3 Strikes and You're Out!")
 }
 
 func PrintCards(cards []card.Card) {

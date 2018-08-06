@@ -25,10 +25,10 @@ func (board *Board) PlayCard(c *card.Card) bool {
 	} else {
 		// card to discards
 		board.Strikes++
-		fmt.Println("Failed to play %v", c)
+		fmt.Println("Failed to play ", c)
 		return false
 	}
-	fmt.Println("Successfully played %v", c)
+	fmt.Println("Successfully played ", c)
 	if c.Number == 3 || c.Number == 5 {
 		board.Information++
 	}
