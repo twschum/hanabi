@@ -1,81 +1,66 @@
 /* simulation
 
-Board, Card, and general rules
+Board, and general rules
 
 */
 package simulation
 
 import (
+	"github.com/twschum/hanabi/pkg/player"
+	"github.com/twschum/hanabi/pkg/card"
 	"fmt"
 )
 
-const (
-	red      =  iota
-	blue     =  iota
-	green    =  iota
-	yellow   =  iota
-	white    =  iota
-	//rainbow  =  iota
-	SuitCount = iota
-)
-
-func ColorChar(c int) byte {
-	return "RBGYW*"[c]
-}
-
-type Card struct {
-	Color, Number int
-	Color_known, Number_known bool
-}
-
-type State struct {
-	strikes, information, players int
+type Board struct {
+	strikes, information int
 	//draw // one array for deck, everything else is a slice or pointer
 	//discard
-	board [SuitCount]int // starts at 0 for each suit
+	board [card.SuitCount]int // starts at 0 for each suit
 }
 
-func Begin(players int) *State {
-	state := new(State)
-	state.players = players
-	state.information = 9
-	return state
+func Begin(players int) *Board {
+	board := new(Board)
+	board.players = players
+	board.information = 9
+	return board
 }
 
 /* Run the thing */
-func Run(state *State) {
+func Run(board *Board) {
 
-
+	// for each player
+		// choose an action
+		// do that action
+		// check end game
 }
 
-func PrintBoard(state *State) {
+func (board *Board) Print() {
+	// Prints out the game information
 	fmt.Printf("R B G Y W\n")
-	for value := range state.board {
-		fmt.Printf("%d ", value)
+	for i := range board.board {
+		fmt.Printf("%d ", board.board[i])
 	}
 	fmt.Println("")
 }
 
-func PrintCards(cards []Card) {
+func PrintCards(cards []card.Card) {
 	var format string
 	for i := range cards {
-		card := cards[i]
-		if card.Color_known {
-			format = "|%c|"
+		if cards[i].Color_known {
+			format = "*%c*"
 		} else {
 			format = " %c "
 		}
-		fmt.Printf(format, ColorChar(card.Color))
+		fmt.Printf(format, card.ColorChar(cards[i].Color))
 	}
 	fmt.Println("")
 	for i := range cards {
-		card := cards[i]
-		if card.Number_known {
-			format = "|%d|"
+		if cards[i].Number_known {
+			format = "*%d*"
 		} else {
 			format = " %d "
 		}
-		fmt.Printf(format, card.Number)
+		fmt.Printf(format, cards[i].Number)
 	}
 	fmt.Println("")
 }
