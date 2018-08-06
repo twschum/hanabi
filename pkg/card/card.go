@@ -39,37 +39,46 @@ func (c *Card) String() string {
 	return fmt.Sprintf("%c%d", ColorChar(c.Color), c.Number)
 }
 
-var Deck = [...]Card {
-	Card{Color: Red, Number: 1, Number_known: true},
-	Card{Color: Red, Number: 2, Color_known: true},
-	Card{Color: Red, Number: 3},
-	Card{Color: Red, Number: 4},
-	Card{Color: Red, Number: 5},
-	Card{Color: Blue, Number: 1, Number_known: true},
-	Card{Color: Blue, Number: 2},
-	Card{Color: Blue, Number: 3},
-	Card{Color: Blue, Number: 4},
-	Card{Color: Blue, Number: 5},
-	Card{Color: Green, Number: 1, Number_known: true},
-	Card{Color: Green, Number: 2},
-	Card{Color: Green, Number: 3},
-	Card{Color: Green, Number: 4},
-	Card{Color: Green, Number: 5},
-	Card{Color: Yellow, Number: 1},
-	Card{Color: Yellow, Number: 2},
-	Card{Color: Yellow, Number: 3},
-	Card{Color: Yellow, Number: 4},
-	Card{Color: Yellow, Number: 5},
-	Card{Color: White, Number: 1},
-	Card{Color: White, Number: 2},
-	Card{Color: White, Number: 3},
-	Card{Color: White, Number: 4},
-	Card{Color: White, Number: 5},
+// Only one deck, all card refs are pointers everywhere else
+type Deck struct {
+	index int
+	deck [25]Card
 }
-var deckIndex = 0
 
-func DrawCard() Card {
-	ret := Deck[deckIndex]
-	deckIndex++
-	return ret
+func GenerateDeck() Deck {
+	var deck Deck
+	deck.deck = [...]Card {
+		Card{Color: Red, Number: 1, Number_known: true},
+		Card{Color: Red, Number: 2, Color_known: true},
+		Card{Color: Red, Number: 3},
+		Card{Color: Red, Number: 4},
+		Card{Color: Red, Number: 5},
+		Card{Color: Blue, Number: 1, Number_known: true},
+		Card{Color: Blue, Number: 2},
+		Card{Color: Blue, Number: 3},
+		Card{Color: Blue, Number: 4},
+		Card{Color: Blue, Number: 5},
+		Card{Color: Green, Number: 1, Number_known: true},
+		Card{Color: Green, Number: 2},
+		Card{Color: Green, Number: 3},
+		Card{Color: Green, Number: 4},
+		Card{Color: Green, Number: 5},
+		Card{Color: Yellow, Number: 1},
+		Card{Color: Yellow, Number: 2},
+		Card{Color: Yellow, Number: 3},
+		Card{Color: Yellow, Number: 4},
+		Card{Color: Yellow, Number: 5},
+		Card{Color: White, Number: 1},
+		Card{Color: White, Number: 2},
+		Card{Color: White, Number: 3},
+		Card{Color: White, Number: 4},
+		Card{Color: White, Number: 5},
+	}
+	return deck
+}
+
+func (deck *Deck) Draw() *Card {
+	// TODO handling the deck running out
+	deck.index++
+	return &deck.deck[deck.index-1]
 }

@@ -12,6 +12,7 @@ import (
 
 type Board struct {
 	Strikes, Information int
+	Deck card.Deck
 	//draw // one array for deck, everything else is a slice or pointer
 	//discard
 	Fireworks [card.SuitCount]int // starts at 0 for each suit
@@ -33,6 +34,12 @@ func (board *Board) PlayCard(c *card.Card) bool {
 		board.Information++
 	}
 	return true
+}
+
+func (board *Board) DiscardCard(c *card.Card) {
+	// whatever traking we may do for cards
+	fmt.Println("Discarded ", c)
+	board.Information++
 }
 
 func (board *Board) Print() {

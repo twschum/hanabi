@@ -21,8 +21,9 @@ func Begin(nPlayers int) *Game {
 	game := new(Game)
 	game.Players = make([]player.Player, nPlayers)
 	game.GameBoard.Information = 9
+	game.GameBoard.Deck = card.GenerateDeck()
 	for i := 0; i < nPlayers*4; i++ {
-		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, card.DrawCard())
+		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, game.GameBoard.Deck.Draw())
 	}
 	return game
 }
@@ -44,7 +45,7 @@ func Run(game *Game) {
 	fmt.Println("Game Over - 3 Strikes and You're Out!")
 }
 
-func PrintCards(cards []card.Card) {
+func PrintCards(cards []*card.Card) {
 	var format string
 	for i := range cards {
 		if cards[i].Color_known {
