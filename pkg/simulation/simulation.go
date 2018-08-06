@@ -23,8 +23,10 @@ func Begin(nPlayers int) *Game {
 	game.Board.Information = 9
 	// deal out starting hand cards
 	game.Board.Deck = card.GenerateDeck()
+	// shuffle
 	for i := 0; i < nPlayers*4; i++ {
-		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, game.Board.Deck.Draw())
+		c, _ := game.Board.Deck.Draw()
+		game.Players[i % nPlayers].Cards = append(game.Players[i % nPlayers].Cards, c)
 	}
 	// assign IDs
 	for i, player := range game.Players {

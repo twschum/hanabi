@@ -59,10 +59,10 @@ func GenerateDeck() Deck {
 	return deck
 }
 
-func (deck *Deck) Draw() *Card {
+func (deck *Deck) Draw() (*Card, bool) {
 	if deck.index == len(deck.deck) {
-		return &deck.nullCard
+		return nil, false
 	}
 	deck.index++
-	return &deck.deck[deck.index-1]
+	return &deck.deck[deck.index-1], true
 }

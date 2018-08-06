@@ -48,17 +48,12 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 }
 
 func (p Player) HandIsEmpty() bool {
-	for _, c := range p.Cards {
-		if c.IsValid() {
-			return false
-		}
-	}
-	return true
+	return len(p.Cards) == 0
 }
 
 func (p Player) canPlay(c *card.Card) bool {
 	// self
-	if c.IsValid() && (c.Color_known || c.Number_known) {
+	if c.Color_known || c.Number_known {
 		return true;
 	}
 	return false;
@@ -66,19 +61,21 @@ func (p Player) canPlay(c *card.Card) bool {
 
 func (p Player) drawCard(index int, b *board.Board) {
 	// self
-	p.Cards[index] = b.Deck.Draw()
-	fmt.Println("Drawing ", p.Cards[index])
+	if c, valid := b.Deck.Draw(); valid {
+		p.Cards[index] = c
+		fmt.Println("Drawing ", p.Cards[index])
+	} else {
+		p.Cards = append(p.Cards[:index], p.Cards[index+1:]...)
+	}
 }
 
 func (p Player) randomDiscard(b *board.Board) {
 	// self
 	// random, for now 1
 	for i, c := range p.Cards {
-		if c.IsValid() {
-			b.DiscardCard(p.Cards[i])
-			p.drawCard(i, b)
-			return
-		}
+		b.DiscardCard(c)
+		p.drawCard(i, b)
+		return
 	}
 	fmt.Println("ERROR: no valid cards to discard")
 }
