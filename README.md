@@ -5,17 +5,17 @@ A simulation of the game Hanabi written in go
 
 English Rules - Translated by Wade Nelson (wadenels) from the ABACUSSPIELE edition German rules. Please use these rules in conjunction with the illustrations and examples in the German rules included with the game.
 
-##Game Material
+## Game Material
 50 fireworks cards in five colors (red, yellow, green, blue, white)
 10 cards per color with the values ​​1, 1, 1, 2, 2, 3, 3, 4, 4, 5
 10 colorful fireworks cards with values ​​of 1, 1, 1, 2, 2, 3, 3, 4, 4, 5
 8 Note tokens (+ 1 spare)
 3 Storm tokens
 
-##Aim of the game
+## Aim of the game
 Hanabi is a cooperative game, meaning all players play together as a team. The players have to play the fireworks cards sorted by colors and numbers. However, they see their own hand cards not, and so everyone needs the advice of his fellow players. The more cards the players play correctly, the more points they receive when the game ends.
 
-##The Game
+## The Game
 Important: For the basic game, the colorful fireworks cards and the spare Note token(s) are not needed. They only come in to use for the advanced game.
 
 The oldest player is appointed first player and sets the tokens in the play area.
@@ -28,7 +28,7 @@ Now the fireworks cards are shuffled. Depending on the number of players involve
 Important: Unlike other card games, players may not see thier own hand! The players take their hand cards so that the back is facing the player. The fronts can only be seen by the other players. The remaining cards are placed face down in the draw pile in the middle of the table. The first player starts.
 
 
-##Gameplay
+## Gameplay
 Play proceeds clockwise. On a player's turn, he must perform exactly one of the following:
 A. Give a hint or
 B. Discard a card or
@@ -63,13 +63,13 @@ The player places the card face up so that it extends a current firework or star
 The gods are angry with this error and send a flash from the sky. The player turns a Storm tile lightning-side-up. The incorrect card is discarded to the discard pile near the draw deck.
 The player then draws another card into their hand in the same fashion as their original card hands, never looking at the front.
 
-#The Fireworks
+## The Fireworks
 The fireworks will be in the middle of the table and are designed in five different colors. For each color an ascending series with numerical values from 1 to 5 is formed. A firework must start with the number 1 and each card played to a firework must increment the previously played card by one. A firework may not contain more than one card of each value.
 
-#Bonus
+## Bonus
 When a player completes a firework by correctly playing a 5 card then the players receive a bonus. One Note token is turned from black side to white side up. If all tokens are already white-side-up then no bonus is received. Play then passes to the next player (clockwise).
 
-#Ending the Game
+## Ending the Game
 The game can end in three ways:
 1. The third Storm token is turned lightning-side-up. The gods deliver their wrath in the form of a storm that puts an end to the fireworks. The game ends immediately, and the players earn zero points.
 2. The players complete all five fireworks correctly. The game ends immediately, and the players celebrate their spectacular victory with the maximum score of 25 points.
@@ -85,14 +85,14 @@ The quality of the fireworks display according to the rating scale of the "Inter
 21-24 - Very good! The audience is enthusiastic!
 25 - Legendary! The audience will never forget this show!
 
-#Important Notes and Tips
+## Important Notes and Tips
 • Players may rearrange their hand cards and change their orientation to help themselves
 remember the information they received. Players may not ever look at the front of their own cards until the play them.
 • The discard pile may always be searched for information.
 • Hanabi based on communication - and non-communication - between the Players. If one interprets the rules strictly then players may not, except for the announcements of the current player, talk to each other. Ultimately, each group should decide by its own measure
 what communication is permitted communication. Play so that you have fun!
 
-#Variants
+## Variants
 
 **Difficulty Change**
 • Too easy? Play with only 2 or even only 1 Storm token.
