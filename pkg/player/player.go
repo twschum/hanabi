@@ -27,18 +27,15 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 			return
 		}
 	}
-	// cheat, check their own playable cards
-	if c, valid := p.choosePlayableCard(p.getPlayableCards(b)); valid && false {
-		fmt.Println("(CHEAT)Playing ", c)
-		b.PlayCard(c)
-		p.drawCard(p.indexFromCard(c), b)
-		return
-	}
-
 	// try to give information
+	// todo get players going clockwise from this player
+	// maybe secondary sort based on how much information they have
 	for _, player := range otherPlayers {
 		if player.Id == p.Id {
 			continue
+		}
+		if c, valid := player.choosePlayableCard(player.getPlayableCards(b)); valid {
+			return
 		}
 	}
 
@@ -96,7 +93,8 @@ func (p Player) informationKnown() (count int) {
 func (p Player) getPlayableCards(b *board.Board) (playable []*card.Card) {
 	// other
 	for _, c := range p.Cards {
-		if c.Number == b.Fireworks[c.Color] + 1 {
+		if c.Number == b.Fireworks[c.Color] + 1
+			&& !(c.Number_known || c.Color_known) {
 			playable = append(playable, c)
 		}
 	}

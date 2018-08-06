@@ -77,7 +77,6 @@ func (board *Board) ShouldContinue() bool {
 
 func (board *Board) MaxScore() (sum int) {
 	maxFireworks := []int{5, 5, 5, 5, 5} // ???
-	distribution := []int{0, 3, 2, 2, 2, 1} // 3 1s, 2 2s 3s 4s, 1 5
 	// for each color, determine max
 	for color := range maxFireworks {
 		// get counts of each number for this color
