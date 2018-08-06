@@ -42,44 +42,24 @@ func (c *Card) String() string {
 // Only one deck, all card refs are pointers everywhere else
 type Deck struct {
 	index int
-	deck [25]Card
+	deck []Card
 	nullCard Card
 }
 
+var Distribution []int = []int{0, 3, 2, 2, 2, 1} // 3 1s, 2 2s 3s 4s, 1 5
 func GenerateDeck() Deck {
 	var deck Deck
-	deck.deck = [...]Card {
-		Card{Color: Red, Number: 1, Number_known: true},
-		Card{Color: Red, Number: 2, Color_known: true},
-		Card{Color: Red, Number: 3},
-		Card{Color: Red, Number: 4},
-		Card{Color: Red, Number: 5},
-		Card{Color: Blue, Number: 1, Number_known: true},
-		Card{Color: Blue, Number: 2},
-		Card{Color: Blue, Number: 3},
-		Card{Color: Blue, Number: 4},
-		Card{Color: Blue, Number: 5},
-		Card{Color: Green, Number: 1, Number_known: true},
-		Card{Color: Green, Number: 2},
-		Card{Color: Green, Number: 3},
-		Card{Color: Green, Number: 4},
-		Card{Color: Green, Number: 5},
-		Card{Color: Yellow, Number: 1},
-		Card{Color: Yellow, Number: 2},
-		Card{Color: Yellow, Number: 3},
-		Card{Color: Yellow, Number: 4},
-		Card{Color: Yellow, Number: 5},
-		Card{Color: White, Number: 1},
-		Card{Color: White, Number: 2},
-		Card{Color: White, Number: 3},
-		Card{Color: White, Number: 4},
-		Card{Color: White, Number: 5},
+	for color := 0; color < SuitCount; color++ {
+		for n := 1; n < 6; n++ {
+			for i := 0; i < Distribution[n]; i++ {
+				deck.deck = append(deck.deck, Card{Color: color, Number: n})
+			}
+		}
 	}
 	return deck
 }
 
 func (deck *Deck) Draw() *Card {
-	// TODO handling the deck running out
 	if deck.index == len(deck.deck) {
 		return &deck.nullCard
 	}
