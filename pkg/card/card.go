@@ -20,12 +20,6 @@ const (
 	SuitCount = iota
 )
 
-type color int
-
-func ColorChar(c int) byte {
-	return "RBGYW*"[c]
-}
-
 type Card struct {
 	Color, Number int
 	Color_known, Number_known bool
@@ -37,6 +31,14 @@ func (c *Card) IsValid() bool {
 
 func (c *Card) String() string {
 	return fmt.Sprintf("%c%d", ColorChar(c.Color), c.Number)
+}
+
+func ColorChar(c int) byte {
+	return "RBGYW*"[c]
+}
+
+func (c *Card) ColorChar() byte {
+	return "RBGYW*"[c.Color]
 }
 
 // Only one deck, all card refs are pointers everywhere else
