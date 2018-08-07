@@ -87,8 +87,8 @@ func (board *Board) MaxScore() (sum int) {
 			}
 		}
 		// for the counts figure out the max firework
-		for i := 1; i < len(distribution); i++ {
-			if counts[i] == distribution[i] {
+		for i := 1; i < len(card.Distribution); i++ {
+			if counts[i] == card.Distribution[i] {
 				maxFireworks[color] = i - 1
 				break
 			}

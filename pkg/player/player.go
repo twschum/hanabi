@@ -34,7 +34,8 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 		if player.Id == p.Id {
 			continue
 		}
-		if c, valid := player.choosePlayableCard(player.getPlayableCards(b)); valid {
+		// TODO ficure out dat logic yo
+		if _, valid := player.choosePlayableCard(player.getPlayableCards(b)); valid {
 			return
 		}
 	}
@@ -93,8 +94,7 @@ func (p Player) informationKnown() (count int) {
 func (p Player) getPlayableCards(b *board.Board) (playable []*card.Card) {
 	// other
 	for _, c := range p.Cards {
-		if c.Number == b.Fireworks[c.Color] + 1
-			&& !(c.Number_known || c.Color_known) {
+		if c.Number == (b.Fireworks[c.Color] + 1) && !(c.Number_known || c.Color_known) {
 			playable = append(playable, c)
 		}
 	}
