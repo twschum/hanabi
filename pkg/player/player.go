@@ -28,14 +28,22 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 		}
 	}
 	// try to give information
-	// todo get players going clockwise from this player
+	// TODO get players going clockwise from this player
 	// maybe secondary sort based on how much information they have
 	for _, player := range otherPlayers {
 		if player.Id == p.Id {
 			continue
 		}
 		// TODO ficure out dat logic yo
-		if _, valid := player.choosePlayableCard(player.getPlayableCards(b)); valid {
+		// first sort and choose players
+		//   least amount of information first
+		//   followed by going to the next player
+		// Choose a playable card
+		//   prefer cards nothing is known about
+		//   try to figure out multi-card clues eventually
+		if s, valid := player.choosePlayableCard(player.getPlayableCards(b)); valid {
+			if c.ColorKnown {
+			}
 			return
 		}
 	}
