@@ -34,17 +34,29 @@ func (p Player) ChooseAction(b *board.Board, otherPlayers []Player) {
 		if player.Id == p.Id {
 			continue
 		}
-		// TODO ficure out dat logic yo
+		if !(b.Information > 0) {
+			fmt.Println("No information to give!")
+			break
+		}
+		// TODO figure out dat logic yo
 		// first sort and choose players
 		//   least amount of information first
 		//   followed by going to the next player
 		// Choose a playable card
 		//   prefer cards nothing is known about
 		//   try to figure out multi-card clues eventually
-		if s, valid := player.choosePlayableCard(player.getPlayableCards(b)); valid {
-			if c.ColorKnown {
+		if c, valid := player.choosePlayableCard(player.getPlayableCards(b)); valid {
+			if !c.NumberKnown {
+				c.NumberKnown = true
+				b.Information -= 1
+				fmt.Println("Telling Player %d they have a %d", player.Id, c.Number)
+				return
+			} else if !c.ColorKnown {
+				c.ColorKnown = true
+				b.Information -= 1
+				fmt.Println("Telling Player %d they have a %s card", player.Id, c.Color)
+				return
 			}
-			return
 		}
 	}
 
@@ -59,7 +71,7 @@ func (p Player) HandIsEmpty() bool {
 
 func (p Player) canPlay(c *card.Card) bool {
 	// self
-	if c.Color_known || c.Number_known {
+	if c.ColorKnown || c.NumberKnown {
 		return true;
 	}
 	return false;
@@ -89,10 +101,10 @@ func (p Player) randomDiscard(b *board.Board) {
 func (p Player) informationKnown() (count int) {
 	// any
 	for _, c := range p.Cards {
-		if c.Number_known {
+		if c.NumberKnown {
 			count++
 		}
-		if c.Color_known {
+		if c.ColorKnown {
 			count++
 		}
 	}
@@ -102,7 +114,7 @@ func (p Player) informationKnown() (count int) {
 func (p Player) getPlayableCards(b *board.Board) (playable []*card.Card) {
 	// other
 	for _, c := range p.Cards {
-		if c.Number == (b.Fireworks[c.Color] + 1) && !(c.Number_known || c.Color_known) {
+		if c.Number == (b.Fireworks[c.Color] + 1) && !(c.NumberKnown || c.ColorKnown) {
 			playable = append(playable, c)
 		}
 	}
@@ -110,6 +122,7 @@ func (p Player) getPlayableCards(b *board.Board) (playable []*card.Card) {
 }
 
 func (p Player) choosePlayableCard(playable []*card.Card) (*card.Card, bool) {
+	// TODO make this more of a sort playable cards
 	// given playable cards, choose the best one
 	if len(playable) == 0 {
 		return nil, false

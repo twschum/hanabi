@@ -9,7 +9,6 @@ import (
 	"fmt"
 )
 
-
 const (
 	Red      =  iota
 	Blue     =  iota
@@ -22,7 +21,7 @@ const (
 
 type Card struct {
 	Color, Number int
-	Color_known, Number_known bool
+	ColorKnown, NumberKnown bool
 }
 
 func (c *Card) IsValid() bool {
@@ -30,7 +29,7 @@ func (c *Card) IsValid() bool {
 }
 
 func (c *Card) String() string {
-	return fmt.Sprintf("%c%d", ColorChar(c.Color), c.Number)
+	return fmt.Sprintf("%c%d", c.ColorChar, c.Number)
 }
 
 func ColorChar(c int) byte {

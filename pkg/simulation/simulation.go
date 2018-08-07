@@ -52,12 +52,12 @@ func Run(game *Game) {
 
 func PrintCards(cards []*card.Card) {
 	for i := range cards {
-		format := getFormatter(cards[i].Color_known, "%c")
+		format := getFormatter(cards[i].ColorKnown, "%c")
 		fmt.Printf(format, card.ColorChar(cards[i].Color))
 	}
 	fmt.Println("")
 	for i := range cards {
-		format := getFormatter(cards[i].Number_known, "%d")
+		format := getFormatter(cards[i].NumberKnown, "%d")
 		fmt.Printf(format, cards[i].Number)
 	}
 	fmt.Println("")
