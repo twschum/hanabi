@@ -9,6 +9,7 @@ import (
 	"github.com/twschum/hanabi/pkg/card"
 	"github.com/twschum/hanabi/pkg/board"
 	"fmt"
+	"sort"
 )
 
 type Player struct {
